@@ -28,6 +28,15 @@ const setPublicRoutes = app => {
     res.status(OK).send(entryForPublic(entry))
   })
 
+  app.options('/entries/ident/:identificator', cors(allowAll))
+
+  app.get('/entries/ident/:identificator', cors(allowAll), checkApiKey, async (req, res) => {
+    const { projectId } = req
+    const { identificator } = req.params
+    const entry = await apiEntries.getEntryByIdentificator(projectId, identificator)
+    res.status(OK).send(entryForPublic(entry[0]))
+  })
+
   app.get('/files/:fileId/:fileName', cors(allowAll), checkFileRedirect, checkApiKey, async (req, res) => {
     const { projectId } = req
     const { fileId, fileName } = req.params

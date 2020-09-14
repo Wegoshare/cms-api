@@ -89,6 +89,16 @@ class ApiEntries {
 
     return await Entry.findById(entryId, '-projectId')
   }
+
+  async getEntryByIdentificator(projectId, identificator) {
+    var replace = "\"identificator\":\"" + identificator + "\""
+
+    const entity = await Entry.find({ data: { $regex: new RegExp(replace, "g") } })
+
+    if (entity.length == 0 || !entity || entity[0].projectId !== projectId) throw new ApiError('Entry not found', NOT_FOUND)
+
+    return await Entry.find({ data: { $regex: new RegExp(replace, "g") } }, '-projectId -modelId')
+  }
 }
 
 module.exports = { apiEntries: new ApiEntries() }
