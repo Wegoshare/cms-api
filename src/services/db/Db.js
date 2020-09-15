@@ -1,5 +1,5 @@
 const { Model, File, Entry, Project, ProjectAndUserRelation } = require('./tables')
-const { User, AuthToken, RecoverPass, Group, ApiToken, Contact, EncryptionKey } = require('./tables')
+const { User, AuthToken, RecoverPass, ApiToken, Contact, EncryptionKey } = require('./tables')
 
 class Db {
   constructor(props) {
@@ -84,7 +84,6 @@ module.exports = {
   }),
   Project: new Db({ Model: Project, normToDb, normFromDb }),
   User: new Db({ Model: User, normToDb, normFromDb }),
-  Group: new Db({ Model: Group, normToDb, normFromDb }),
   ProjectAndUserRelation: new Db({ Model: ProjectAndUserRelation, normToDb, normFromDb }),
   AuthToken: new Db({ Model: AuthToken, normToDb, normFromDb }),
   RecoverPass: new Db({ Model: RecoverPass, normToDb, normFromDb }),
