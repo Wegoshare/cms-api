@@ -1,6 +1,5 @@
 const { Model, Project, ProjectAndUserRelation } = require('../db/Db')
 const { createProject } = require('./types/projects/createProject')
-const Trianglify = require('trianglify')
 const { apiTokens } = require('./ApiTokens')
 const { apiModels } = require('./ApiModels')
 
@@ -17,12 +16,6 @@ class ApiProjects {
     const createdProject = createProject(project, { noId: true })
     const savedProject = await Project.save({
       ...createdProject,
-      image: Trianglify({
-        width: 600,
-        height: 600,
-        cell_size: 40,
-        variance: '0.6',
-      }).png(),
     })
     await ProjectAndUserRelation.save({ projectId: savedProject.id, userId })
   }
