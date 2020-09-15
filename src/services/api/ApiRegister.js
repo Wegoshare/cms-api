@@ -13,11 +13,11 @@ class ApiRegister {
     const createdCreds = createCreds(creds)
     const verifiedUsers = await User.find({ login: createdCreds.login, isVerified: true }, '_id')
     if (verifiedUsers.length) throw new ApiError('User with that email already exists', BAD_REQUEST)
-    const unverifiedUsers = await User.find({ login: createdCreds.login, isVerified: false }, '_id')
+    const unverifiedUsers = await User.find({ login: createdCreds.login, isVerified: true }, '_id')
     if (unverifiedUsers.length) {
       await User.update(unverifiedUsers[0].id, { passHash: hash(createdCreds.password) })
     } else {
-      await User.save({ login: createdCreds.login, passHash: hash(createdCreds.password), isVerified: false })
+      await User.save({ login: createdCreds.login, passHash: hash(createdCreds.password), isVerified: true, groupId: createdCreds.groupId })
     }
     await mailer.send('email-confirm', {
       to: createdCreds.login,

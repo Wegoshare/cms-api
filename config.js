@@ -1,11 +1,11 @@
 module.exports = {
   config: {
-    isDemo: true,
+    isDemo: false,
     email: 'info@anyjsoncms.com',
     devApiUrl: 'http://localhost:8080',
-    prodApiUrl: 'https://api.anyjsoncms.com',
+    prodApiUrl: 'http://localhost:8080',
     devAppUrl: 'http://localhost:3000',
-    prodAppUrl: 'https://anyjsoncms.com',
+    prodAppUrl: 'http://localhost:3000',
     devApiServerHost: 'localhost',
     prodApiServerHost: 'localhost',
     devApiServerPort: 8080,

@@ -33,6 +33,12 @@ const User = new Schema({
   login: String,
   passHash: String,
   isVerified: Boolean,
+  groupId: String,
+})
+
+const Group = new Schema({
+  name: String,
+  description: String,
 })
 
 const RecoverPass = new Schema({
@@ -81,6 +87,7 @@ module.exports = {
   Project: mongoose.model('Project', Project),
   ApiToken: mongoose.model('ApiToken', ApiToken),
   User: mongoose.model('User', User),
+  Group: mongoose.model('Group', Group),
   RecoverPass: mongoose.model('RecoverPass', RecoverPass),
   ProjectAndUserRelation: mongoose.model('ProjectAndUserRelation', ProjectAndUserRelation),
   AuthToken: mongoose.model('AuthToken', AuthToken),
