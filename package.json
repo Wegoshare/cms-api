@@ -23,7 +23,6 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
-    "cors": "^2.8.5",
     "email": "^0.2.6",
     "eslint": "^5.9.0",
     "eslint-plugin-node": "^8.0.0",
