@@ -3,15 +3,15 @@ const { OK } = require('http-status-codes')
 const { apiFiles } = require('../services/api/ApiFiles')
 const { checkAuth } = require('../services/auth/checkAuth')
 const { checkProjectAccess } = require('../services/auth/checkProjectAccess')
-const { allowAll, allowMe } = require('../helpers/corsSettings')
+const { allowAll } = require('../helpers/corsSettings')
 const { ApiError } = require('../helpers/ApiError')
 const { FORBIDDEN } = require('http-status-codes')
 const { config } = require('../config')
 
 const setFilesRoutes = app => {
-  app.options('/projects/:projectId/files', cors(allowMe))
+  app.options('/projects/:projectId/files', cors(allowAll))
 
-  app.post('/projects/:projectId/files', cors(allowMe), checkAuth, checkProjectAccess, async (req, res) => {
+  app.post('/projects/:projectId/files', cors(allowAll), checkAuth, checkProjectAccess, async (req, res) => {
     if (!config.uploadFiles) {
       throw new ApiError(
         'Files uploading are not allowed ' +
