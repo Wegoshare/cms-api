@@ -1,5 +1,6 @@
 const express = require('express')
 require('express-async-errors')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const cookieParser = require('cookie-parser')
@@ -9,6 +10,7 @@ const path = require('path')
 const { OK, INTERNAL_SERVER_ERROR, NOT_FOUND, FORBIDDEN } = require('http-status-codes')
 const { getStatusMessage, getMessage } = require('./helpers/getStatusMessage')
 const { ApiError } = require('./helpers/ApiError')
+const { allowAll } = require('./helpers/corsSettings')
 const { setPublicRoutes } = require('./routes/setPublicRoutes')
 const { setChangePassRoutes } = require('./routes/setChangePassRoutes')
 const { setEntriesRoutes } = require('./routes/setEntriesRoutes')
@@ -38,9 +40,9 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(fileUpload())
 
-app.options('/say-hello')
+app.options('/say-hello', cors(allowAll))
 
-app.get('/say-hello', (req, res) => {
+app.get('/say-hello', cors(allowAll), (req, res) => {
   res.status(OK).send('hello')
 })
 
@@ -54,7 +56,7 @@ setProjectsRoutes(app)
 setRegisterRoutes(app)
 setTokensRoutes(app)
 
-app.use((error, req, res, next) => {
+app.use(cors(allowAll), (error, req, res, next) => {
   if (error) {
     if (error.message === 'Not allowed by CORS') {
       res.status(FORBIDDEN).send(getMessage(error.message))
@@ -69,7 +71,7 @@ app.use((error, req, res, next) => {
   next(error)
 })
 
-app.use((req, res) => {
+app.use(cors(allowAll), (req, res) => {
   res.status(NOT_FOUND).send(getStatusMessage(NOT_FOUND))
 })
 

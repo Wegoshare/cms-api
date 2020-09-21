@@ -1,19 +1,20 @@
-
+const cors = require('cors')
 const { OK } = require('http-status-codes')
 const { getStatusMessage } = require('../helpers/getStatusMessage')
 const { apiRegister } = require('../services/api/ApiRegister')
+const { allowMe } = require('../helpers/corsSettings')
 
 const setRegisterRoutes = app => {
-  app.options('/register')
+  app.options('/register', cors(allowMe))
 
-  app.post('/register', async (req, res) => {
+  app.post('/register', cors(allowMe), async (req, res) => {
     await apiRegister.register(req.body)
     res.status(OK).send(getStatusMessage(OK))
   })
 
-  app.options('/email-confirm')
+  app.options('/email-confirm', cors(allowMe))
 
-  app.post('/email-confirm', async (req, res) => {
+  app.post('/email-confirm', cors(allowMe), async (req, res) => {
     await apiRegister.emailConfirm(req.body)
     res.status(OK).send(getStatusMessage(OK))
   })
