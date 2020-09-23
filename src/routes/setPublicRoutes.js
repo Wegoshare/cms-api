@@ -1,5 +1,5 @@
 const cors = require('cors')
-const { allowAll } = require('../helpers/corsSettings')
+const { allowAll, allowMe } = require('../helpers/corsSettings')
 const { apiEntries } = require('../services/api/ApiEntries')
 const { apiFiles } = require('../services/api/ApiFiles')
 const { OK } = require('http-status-codes')
@@ -47,9 +47,9 @@ const setPublicRoutes = app => {
       .send(file.buffer)
   })
 
-  app.options('/tmp/contacts', cors(allowAll))
+  app.options('/tmp/contacts', cors(allowMe))
 
-  app.post('/tmp/contacts', cors(allowAll), async (req, res) => {
+  app.post('/tmp/contacts', cors(allowMe), async (req, res) => {
     const { body } = req
     await apiContacts.postContact(body)
     res.status(OK).send(getStatusMessage(OK))
