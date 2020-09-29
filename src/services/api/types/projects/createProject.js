@@ -10,6 +10,7 @@ const createProject = (project, { noId }) => {
     properties: {
       id: { type: 'string', minLength: 1 },
       name: { type: 'string', minLength: 1 },
+      image: { type: 'string', minLength: 1 }
     },
   }
   if (noId) {

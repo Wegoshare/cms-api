@@ -18,7 +18,7 @@ class ApiLogin {
       userId: users[0].id,
       token: generateToken(),
     })
-    return token.token
+    return { token: token.token, user: users[0] }
   }
 }
 

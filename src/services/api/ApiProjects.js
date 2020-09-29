@@ -16,6 +16,7 @@ class ApiProjects {
     const createdProject = createProject(project, { noId: true })
     const savedProject = await Project.save({
       ...createdProject,
+      image: "./assets/" + project.name + ".png"
     })
     await ProjectAndUserRelation.save({ projectId: savedProject.id, userId })
   }
