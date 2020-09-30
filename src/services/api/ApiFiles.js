@@ -15,7 +15,7 @@ class ApiFiles {
     const idValid = isIdValid(fileId)
     if (!idValid) throw new ApiError('Unvalid id', NOT_FOUND)
     const entity = await File.findById(fileId, '_id name projectId')
-    if (!entity || entity.name !== fileName || entity.projectId !== projectId)
+    if (!entity || entity.name !== fileName)
       throw new ApiError('File not found', NOT_FOUND)
 
     return File.findById(fileId, '-projectId')

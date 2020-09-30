@@ -5,7 +5,6 @@ const { apiFiles } = require('../services/api/ApiFiles')
 const { OK } = require('http-status-codes')
 const { checkApiKey } = require('../services/auth/checkApiKey')
 const { entryForPublic } = require('../helpers/entryForPublic')
-const { checkFileRedirect } = require('../services/auth/checkFileRedirect')
 const { getStatusMessage } = require('../helpers/getStatusMessage')
 const { apiContacts } = require('../services/api/ApiContacts')
 
@@ -37,7 +36,7 @@ const setPublicRoutes = app => {
     res.status(OK).send(entryForPublic(entry[0]))
   })
 
-  app.get('/files/:fileId/:fileName', cors(allowAll), checkFileRedirect, checkApiKey, async (req, res) => {
+  app.get('/files/:fileId/:fileName', cors(allowAll), async (req, res) => {
     const { projectId } = req
     const { fileId, fileName } = req.params
     const file = await apiFiles.getFile(projectId, fileId, fileName)
