@@ -8,7 +8,7 @@ const allowAll = {
 }
 const allowMe = {
   origin: (origin, cb) => {
-    const list = [config.appUrl]
+    const list = config.appUrl
     const allow = list.indexOf(origin) !== -1
     const error = allow ? null : new Error('Not allowed by CORS')
     cb(error, allow)
